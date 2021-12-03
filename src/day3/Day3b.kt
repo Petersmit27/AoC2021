@@ -1,13 +1,11 @@
 package day3
 
 import java.io.File
-import kotlin.math.pow
 
 fun main() {
     val diagnostics = File("src/day3/input.txt").readLines()
 
     var oxygenList = diagnostics
-    var co2sList = diagnostics
     var i = 0
     while (oxygenList.size > 1) {
         oxygenList = if (oxygenList.count { it[i] == '1' } >= oxygenList.size / 2) {
@@ -15,7 +13,12 @@ fun main() {
         } else {
             oxygenList.filter { it[i] == '0' }
         }
+        i++
+    }
 
+    var co2sList = diagnostics
+    i = 0
+    while (co2sList.size > 1) {
         co2sList = if (co2sList.count { it[i] == '1' } >= co2sList.size / 2) {
             co2sList.filter { it[i] == '0' }
         } else {
@@ -23,5 +26,6 @@ fun main() {
         }
         i++
     }
+
     println(oxygenList[0].toInt(2) * co2sList[0].toInt(2))
 }
