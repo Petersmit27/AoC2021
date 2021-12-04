@@ -8,7 +8,7 @@ fun main() {
     //Get balls
     val balls = input[0].split(",").map { it.toInt() }
 
-    val boards = ArrayList<Board>()
+    var boards = ArrayList<Board>()
 
     // Parse all the boards
     input = input.drop(2)
@@ -17,14 +17,13 @@ fun main() {
         input = input.dropWhile { it != "" }.drop(1)
     }
 
-    val winningBoards = ArrayList<Board>()
     //Play the game of Bingus
     var currBall = -1
-    while (winningBoards.size < boards.size) {
+    while (!boards.all { it.hasWon() }) {
         currBall++
+        boards = boards.filter { !it.hasWon() } as ArrayList<Board>
         boards.forEach { it.markNum(balls[currBall]) }
-        winningBoards += boards.filter { it.hasWon() && it !in winningBoards }
     }
 
-    println("Losing score: ${balls[currBall] * winningBoards.last().unmarkedSum()}")
+    println("Losing score: ${balls[currBall] * boards[0].unmarkedSum()}")
 }
