@@ -11,7 +11,7 @@ fun main() {
         fishesPerDay[daysLeft] = fishies.count { it == daysLeft }.toLong()
     }
 
-    for (day in 0 until 80) {
+    for (day in 0 until 256) {
         val newFishiesPerDay = Array(9) { 0L }
 
         //Handle fishie aging
