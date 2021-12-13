@@ -19,16 +19,16 @@ data class Field(val dots: Set<Coordinate>) {
 
     override fun toString(): String {
         val xLen = dots.maxOf { it.x }
-        val res = Array(dots.maxOf { it.y } + 1) { "" }
-        for (y in res.indices) {
+        val yLen = dots.maxOf { it.y }
+        val res = StringBuilder()
+        for (y in 0..yLen) {
             val xs = dots.filter { it.y == y }.map { it.x }
-            val line = StringBuilder()
             for (x in 0..xLen) {
-                line.append(if (x in xs) '█' else ' ')
+                res.append(if (x in xs) '█' else ' ')
             }
-            res[y] = line.toString()
+            res.append('\n')
         }
-        return res.joinToString("\n")
+        return res.toString()
     }
 
 }
