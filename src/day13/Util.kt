@@ -9,32 +9,12 @@ data class Fold(val axis: Axis, val position: Int)
 data class Coordinate(val x: Int, val y: Int)
 
 data class Field(val dots: List<Coordinate>) {
-    fun horizFold(position: Int): Field {
-        val res = ArrayList<Coordinate>()
 
-        for (dot in dots) {
-            if (dot.y < position) {
-                res.add(dot)
-            } else {
-                res.add(Coordinate(dot.x, position - abs(dot.y - position)))
-            }
-        }
-        return Field(res.distinct())
-    }
+    fun horizFold(position: Int) =
+        Field(dots.map { dot -> Coordinate(dot.x, position - abs(dot.y - position)) }.distinct())
 
-
-    fun vertFold(position: Int): Field {
-        val res = ArrayList<Coordinate>()
-
-        for (dot in dots) {
-            if (dot.x < position) {
-                res.add(dot)
-            } else {
-                res.add(Coordinate(position - abs(dot.x - position), dot.y))
-            }
-        }
-        return Field(res.distinct())
-    }
+    fun vertFold(position: Int) =
+        Field(dots.map { dot -> Coordinate(position - abs(dot.x - position), dot.y) }.distinct())
 
 
     override fun toString(): String {
